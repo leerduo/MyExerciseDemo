@@ -3,8 +3,8 @@ package me.chenfuduo.myfragmentdemo;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +13,7 @@ import me.chenfuduo.myfragmentdemo.adapter.SmartFragmentPagerAdapter;
 import me.chenfuduo.myfragmentdemo.utils.LockableViewPager;
 import me.chenfuduo.myfragmentdemo.utils.RotationPageTransformer;
 
-public class SecondActivity extends FragmentActivity implements View.OnClickListener{
+public class SecondActivity extends AppCompatActivity implements View.OnClickListener{
 
     private LockableViewPager viewPager;
 
@@ -103,4 +103,7 @@ public class SecondActivity extends FragmentActivity implements View.OnClickList
             fragment.getView().setBackgroundResource(R.drawable.entrance1);
         }
     }
+
+
+
 }

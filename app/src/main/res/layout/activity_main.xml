@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
 
     <!--静态加载-->
@@ -17,8 +17,21 @@
     <!--动态加载-->
 
     <FrameLayout
+        android:layout_weight="3"
         android:id="@+id/your_placeholder"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"></FrameLayout>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="#009688"
+        />
+
+    <FrameLayout
+        android:layout_weight="2"
+        android:id="@+id/detailPlaceHolder"
+        android:layout_width="0dp"
         android:layout_height="match_parent"></FrameLayout>
 
 </LinearLayout>

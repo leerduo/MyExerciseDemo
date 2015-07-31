@@ -1,14 +1,19 @@
 package me.chenfuduo.myfragmentdemo.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,53 +29,84 @@ public class FooFragment extends Fragment {
 
     private MyAdapter adapter;
 
-    private FragmentActivity activity;
-
     private List<Person> personList;
+
+    private OnMyItemSelectedListener listener;
 
     private static final String TAG = FooFragment.class.getSimpleName();
 
     /**
-     *  is called when a fragment is connected to an activity.
+     * is called when a fragment is connected to an activity.
+     *
      * @param activity
      */
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         Log.i(TAG, "onAttach ");
-        this.activity = (FragmentActivity) activity;
+        if (activity instanceof OnMyItemSelectedListener) {
+            listener = (OnMyItemSelectedListener) activity;
+        } else {
+            throw new ClassCastException(activity.toString() +
+                    "must implement FootFragment.OnMyItemSelectedListener");
+        }
     }
 
 
     /**
      * is called to do initial creation of the fragment.
+     *
      * @param savedInstanceState
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i(TAG, "onCreate ");
+        setHasOptionsMenu(true);
+        Log.i(TAG, "Fragment onCreate ");
+
+        Person p = getArguments().getParcelable("NEW_ADD");
         initData();
-        adapter = new MyAdapter(getActivity(),personList);
+        personList.add(p);
+
+        adapter = new MyAdapter(getActivity(), personList);
+    }
+
+    public static FooFragment newInstance(Person p) {
+        Bundle args = new Bundle();
+        args.putParcelable("NEW_ADD", p);
+        FooFragment fragment = new FooFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+
+    public void toastHello(Context context, String params) {
+        Toast.makeText(context, params, Toast.LENGTH_SHORT).show();
+    }
+
+
+    public interface OnMyItemSelectedListener {
+        void onItemSelected(int position);
     }
 
     private void initData() {
 
         personList = new ArrayList<>();
-        personList.add(new Person(R.mipmap.ic_launcher,"胡一菲"));
-        personList.add(new Person(R.mipmap.ic_launcher,"曾小贤"));
-        personList.add(new Person(R.mipmap.ic_launcher,"陈美嘉"));
-        personList.add(new Person(R.mipmap.ic_launcher,"陆展博"));
-        personList.add(new Person(R.mipmap.ic_launcher,"吕子乔"));
-        personList.add(new Person(R.mipmap.ic_launcher,"唐悠悠"));
-        personList.add(new Person(R.mipmap.ic_launcher,"关谷神奇"));
-        personList.add(new Person(R.mipmap.ic_launcher,"秦玉墨"));
-        personList.add(new Person(R.mipmap.ic_launcher,"林宛瑜"));
-        personList.add(new Person(R.mipmap.ic_launcher,"木婉清"));
+        personList.add(new Person(R.mipmap.ic_launcher, "胡一菲"));
+        personList.add(new Person(R.mipmap.ic_launcher, "曾小贤"));
+        personList.add(new Person(R.mipmap.ic_launcher, "陈美嘉"));
+        personList.add(new Person(R.mipmap.ic_launcher, "陆展博"));
+        personList.add(new Person(R.mipmap.ic_launcher, "吕子乔"));
+        personList.add(new Person(R.mipmap.ic_launcher, "唐悠悠"));
+        personList.add(new Person(R.mipmap.ic_launcher, "关谷神奇"));
+        personList.add(new Person(R.mipmap.ic_launcher, "秦玉墨"));
+        personList.add(new Person(R.mipmap.ic_launcher, "林宛瑜"));
+        personList.add(new Person(R.mipmap.ic_launcher, "木婉清"));
     }
 
     /**
      * is called by Android once the Fragment should inflate a view.
+     *
      * @param inflater
      * @param container
      * @param savedInstanceState
@@ -85,11 +121,41 @@ public class FooFragment extends Fragment {
         // Setup handles to view objects here
         ListView listView = (ListView) view.findViewById(R.id.list);
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                listener.onItemSelected(position);
+            }
+        });
+
         return view;
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_main, menu);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Toast.makeText(getActivity(),"设置",Toast.LENGTH_SHORT).show();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
     }
 
     /**
      * is called when host activity has completed its onCreate() method.
+     *
      * @param savedInstanceState
      */
     @Override
@@ -99,7 +165,7 @@ public class FooFragment extends Fragment {
     }
 
     /**
-     *  is called once the fragment gets visible.
+     * is called once the fragment gets visible.
      */
     @Override
     public void onStart() {
@@ -117,7 +183,7 @@ public class FooFragment extends Fragment {
     }
 
     /**
-     *  Release “expensive” resources. Commit any changes.
+     * Release “expensive” resources. Commit any changes.
      */
     @Override
     public void onPause() {
