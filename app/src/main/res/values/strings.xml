@@ -9,4 +9,6 @@
     <string name="title_activity_navigation_drawer">NavigationDrawerActivity</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="title_item_list">Items</string>
+    <string name="title_item_detail">Item Detail</string>
 </resources>
