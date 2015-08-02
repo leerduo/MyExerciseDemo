@@ -33,4 +33,15 @@
         <item name="textAllCaps">false</item>
     </style>
 
+
+    <style name="cheddar_AlertDialog" parent="@android:style/Theme.Holo.Light.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:buttonBarButtonStyle">@style/cheddar_AlertButtonStyle</item>
+    </style>
+
+    <style name="cheddar_AlertButtonStyle" parent="@android:style/Holo.Light.ButtonBar.AlertDialog">
+        <item name="android:background">@drawable/selectable_background_cheddar</item>
+    </style>
+
+
 </resources>
