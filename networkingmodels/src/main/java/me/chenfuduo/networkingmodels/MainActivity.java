@@ -1,14 +1,16 @@
 package me.chenfuduo.networkingmodels;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import me.chenfuduo.networkingmodels.utils.MyToast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,6 +46,14 @@ public class MainActivity extends AppCompatActivity {
                         i = new Intent(MainActivity.this,SendAndManageRequestActivity.class);
                         startActivity(i);
                         break;
+                    case 1:
+                        MyToast.showToast(MainActivity.this, "该案例在\"Sending and Managing Network Requests\"已经展示过了");
+                        break;
+                    case 2:
+                        i = new Intent(MainActivity.this, MyAsyncTaskActivity.class);
+                        startActivity(i);
+                        break;
+
                 }
             }
         });

@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/MyExerciseDemo.iml" filepath="$PROJECT_DIR$/MyExerciseDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/databinding/databinding.iml" filepath="$PROJECT_DIR$/databinding/databinding.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mylayoutparse/mylayoutparse.iml" filepath="$PROJECT_DIR$/mylayoutparse/mylayoutparse.iml" />
       <module fileurl="file://$PROJECT_DIR$/networkingmodels/networkingmodels.iml" filepath="$PROJECT_DIR$/networkingmodels/networkingmodels.iml" />
     </modules>
   </component>

@@ -23,6 +23,9 @@
             android:name=".SendAndManageRequestActivity"
             android:label="@string/title_activity_send_and_manage_request" >
         </activity>
+        <activity
+            android:name=".MyAsyncTaskActivity"
+            android:label="@string/title_activity_my_async_task"></activity>
     </application>
 
 </manifest>

@@ -1,1 +1,1 @@
-include ':app', ':databinding', ':networkingmodels'
+include ':app', ':databinding', ':networkingmodels', ':mylayoutparse'
