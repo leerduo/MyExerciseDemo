@@ -5,8 +5,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
@@ -45,6 +48,11 @@ public class MyAsyncTaskActivity extends AppCompatActivity {
 
         mLoadingPb = new ProgressBar(this);
 
+        mLoadingPb.setVisibility(View.GONE);
+        mLoadingPb.setIndeterminate(true);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(mLoadingPb, new ActionBar.LayoutParams(GravityCompat.END));
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("提示信息");
         progressDialog.setMessage("正在下载，请稍后...");
@@ -53,6 +61,10 @@ public class MyAsyncTaskActivity extends AppCompatActivity {
 
     }
 
+
+    public void setSupportProgressBarIndeterminateVisibility(boolean visible) {
+        getSupportActionBar().getCustomView().setVisibility(visible ? View.VISIBLE : View.GONE);
+    }
 
     private class MyAsyncTask extends AsyncTask<String, Integer, Bitmap> {
 
@@ -69,6 +81,7 @@ public class MyAsyncTaskActivity extends AppCompatActivity {
             progressBar.setVisibility(ProgressBar.VISIBLE);
             progressDialog.show();
             // miActionProgressItem.setVisible(true);
+            setSupportProgressBarIndeterminateVisibility(true);
         }
 
         @Override
@@ -141,6 +154,7 @@ public class MyAsyncTaskActivity extends AppCompatActivity {
             progressBar.setVisibility(ProgressBar.INVISIBLE);
             // miActionProgressItem.setVisible(false);
             progressDialog.dismiss();
+            setSupportProgressBarIndeterminateVisibility(false);
         }
     }
 

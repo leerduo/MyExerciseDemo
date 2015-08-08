@@ -1,16 +1,18 @@
 apply plugin: 'com.android.application'
 
+
 android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
 
     defaultConfig {
         applicationId "me.chenfuduo.networkingmodels"
-        minSdkVersion 11
+        minSdkVersion 14
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -25,4 +27,5 @@ dependencies {
     compile 'com.loopj.android:android-async-http:1.4.8'
     compile files('libs/fastjson-1.1.43.android.jar')
     compile 'com.squareup.picasso:picasso:2.4.0'
+    compile files('libs/volley.jar')
 }

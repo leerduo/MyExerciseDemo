@@ -6,13 +6,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import me.chenfuduo.networkingmodels.utils.MyToast;
 
 public class MainActivity extends AppCompatActivity {
+
+    private ProgressBar progressBarFooter;
 
     private String[] urlItems = new String[]{
             "Sending and Managing Network Requests",
@@ -36,14 +40,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         listView = (ListView) findViewById(R.id.listView);
-        listView.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,android.R.id.text1,urlItems));
+        setupListWithFooter();
+        listView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, urlItems));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i;
-                switch (position){
+                switch (position) {
                     case 0:
-                        i = new Intent(MainActivity.this,SendAndManageRequestActivity.class);
+                        i = new Intent(MainActivity.this, SendAndManageRequestActivity.class);
                         startActivity(i);
                         break;
                     case 1:
@@ -54,9 +59,44 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(i);
                         break;
 
+                    case 3:
+                        MyToast.showToast(MainActivity.this, "该案例在\"Creating and Executing Async Tasks\"已经展示过了");
+                        break;
+                    case 4:
+                        i = new Intent(MainActivity.this, MyRottenTomatoesActivity.class);
+                        startActivity(i);
+                        break;
+
+                    case 5:
+                        i = new Intent(MainActivity.this, MyVolleyBasicUsageActivity.class);
+                        startActivity(i);
+                        break;
+
+
                 }
             }
         });
+
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if (listView.getAdapter().getCount() == totalItemCount) {
+                    progressBarFooter.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+    }
+
+    private void setupListWithFooter() {
+        View footer = getLayoutInflater().inflate(R.layout.footer_progress, null);
+        progressBarFooter = (ProgressBar) footer.findViewById(R.id.pbFooterLoading);
+        listView.addFooterView(footer);
     }
 
     @Override
